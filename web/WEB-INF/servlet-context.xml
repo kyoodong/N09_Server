@@ -13,7 +13,7 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="kr.co.m_n09"/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/dist/**" location="/frontend/dist/"/>
     <mvc:resources mapping="/frontend/**" location="/frontend/"/>
 
     <bean id="multipartResolver"
