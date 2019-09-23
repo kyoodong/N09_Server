@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="kr.co.m_n09.daos.ads.AdvertisementDao">
+
+    <sql id="adColumn">
+        ID id,
+        START_TIME startTime,
+        END_TIME endTime,
+        NAME name,
+        IMAGE_URL imageUrl,
+        LINK_URL linkUrl
+    </sql>
+
+    <select id="selectAdByTime" resultType="Advertisement">
+        SELECT
+            <include refid="adColumn"></include>
+        FROM tbl_ads
+        WHERE end_time > #{time}
+        AND #{time} >= start_time
+    </select>
+
+    <select id="selectAllAd" resultType="Advertisement">
+        SELECT
+        <include refid="adColumn"></include>
+        FROM tbl_ads
+    </select>
+
+    <select id="selectAdById" resultType="Advertisement">
+        SELECT
+        <include refid="adColumn"></include>
+        FROM tbl_ads
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertAd" parameterType="Advertisement">
+        INSERT INTO tbl_ads
+        VALUES (
+            #{id},
+            #{startTime},
+            #{endTime},
+            #{name},
+            #{imageUrl},
+            #{linkUrl}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="modifyAd">
+        UPDATE tbl_ads
+        SET
+            start_time = #{startTime},
+            end_time = #{endTime},
+            name = #{name},
+            image_url = #{imageUrl},
+            link_url = #{linkUrl}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteAd">
+        DELETE FROM tbl_ads
+        WHERE id = #{id}
+    </delete>
+</mapper>
