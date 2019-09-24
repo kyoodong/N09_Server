@@ -33,6 +33,9 @@ export default {
   props: ['service'],
   computed: {
     sortedUrlDataList() {
+      if (this.service.urlDataList == null)
+        return []
+
       return this.service.urlDataList.sort((left, right) => {
         return left.priority - right.priority
       })

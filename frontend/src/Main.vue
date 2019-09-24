@@ -2,13 +2,12 @@
   <div>
     <h1>관리자 페이지</h1>
     <b-button @click="$bvModal.show('create-service-modal')">서비스 추가</b-button>
-    <b-tabs content-class="mt-3">
+    <b-tabs content-class="mt-3"@input="changedTab">
       <tab
         :service="service"
         :urlList="service.urlList"
         v-for="service in serviceList"
         v-bind:key="service.id"
-        @click="onClickTab(service)"
         @on-delete-service="onDeleteService"
         @on-modify-service="onShowModifyService"
         @on-show-modify-url="onShowModifyUrlData"
@@ -60,12 +59,14 @@ export default {
         })
     },
     onCreateService(data) {
+      data.urlDataList = []
+      this.service = data
       this.serviceList.push(data)
     },
     onModifyService(data) {
       for (var i = 0; i < this.serviceList.length; i++) {
         if (this.serviceList[i].id === data.id) {
-          this.$set(this.serviceList, i, data)
+          this.serviceList[i].name = data.name
           break
         }
       }
@@ -80,15 +81,15 @@ export default {
     onShowModifyService(service) {
       this.$bvModal.show('modify-service-modal')
     },
-    onClickTab(service) {
-      this.service = JSON.parse(JSON.stringify(service))
+    changedTab(index) {
+      this.service = JSON.parse(JSON.stringify(this.serviceList[index]))
     },
     onCreateUrl(urlData) {
       for (var i = 0; i < this.serviceList.length; i++) {
         if (this.serviceList[i].id === urlData.serviceId) {
-          if (this.serviceList[i].serviceList == null)
-            this.serviceList[i].serviceList = []
-
+          if (this.serviceList[i].urlDataList == null) {
+            this.serviceList[i].urlDataList = []
+          }
           this.serviceList[i].urlDataList.push(urlData)
           break
         }
