@@ -19,13 +19,14 @@
         </b-tr>
       </b-tbody>
     </b-table-simple>
+    <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
   </b-tab>
 </template>
 
 <script>
 export default {
   name: 'tab',
-  props: ['title', 'urlList'],
+  props: ['title', 'urlList', 'id'],
   data () {
     return {
     }
@@ -36,6 +37,14 @@ export default {
     },
     modifyUrl(index) {
 
+    },
+    deleteService() {
+      this.$http.delete(`${this.$baseUrl}services/${this.id}`)
+        .then(result => {
+          if (result.status === 200) {
+            this.$emit('on-delete-service', this.id)
+          }
+        })
     }
   }
 }
