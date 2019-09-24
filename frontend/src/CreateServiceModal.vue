@@ -27,6 +27,7 @@ export default {
           if (result.status === 200) {
             this.$emit('on-create-service', result.data)
             this.$bvModal.hide('create-service-modal')
+            this.name = ''
           }
         })
     }

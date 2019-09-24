@@ -1,5 +1,6 @@
 <template>
-  <b-tab :title="title" active>
+  <b-tab :title="service.name" active>
+    <b-button @click="">URL 생성</b-button>
     <b-table-simple hover small>
       <b-thead>
         <b-tr>
@@ -20,13 +21,14 @@
       </b-tbody>
     </b-table-simple>
     <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
+    <b-button variant="primary" @click="$emit('on-modify-service', service)">서비스 수정</b-button>
   </b-tab>
 </template>
 
 <script>
 export default {
   name: 'tab',
-  props: ['title', 'urlList', 'id'],
+  props: ['service', 'urlList'],
   data () {
     return {
     }
@@ -39,10 +41,10 @@ export default {
 
     },
     deleteService() {
-      this.$http.delete(`${this.$baseUrl}services/${this.id}`)
+      this.$http.delete(`${this.$baseUrl}services/${this.service.id}`)
         .then(result => {
           if (result.status === 200) {
-            this.$emit('on-delete-service', this.id)
+            this.$emit('on-delete-service', this.service.id)
           }
         })
     }
