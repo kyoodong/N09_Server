@@ -9,12 +9,12 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr v-for="(data, index) in urlList">
+        <b-tr v-for="(data, index) in urlList" v-bind:key="data.id">
           <b-td>{{ data.name }}</b-td>
           <b-td>{{ data.url }}</b-td>
           <b-td>
-            <b-button @click="delete(index)" variant="danger">삭제</b-button>
-            <b-button @click="modify(index)">수정</b-button>
+            <b-button @click="deleteUrl(index)" variant="danger">삭제</b-button>
+            <b-button @click="modifyUrl(index)">수정</b-button>
           </b-td>
         </b-tr>
       </b-tbody>
@@ -31,10 +31,10 @@ export default {
     }
   },
   methods: {
-    delete(index) {
+    deleteUrl(index) {
 
     },
-    modify(index) {
+    modifyUrl(index) {
 
     }
   }

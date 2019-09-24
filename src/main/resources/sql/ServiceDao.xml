@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="kr.co.m_n09.daos.ServiceDao">
+
+    <sql id="column">
+        ID id,
+        NAME name
+    </sql>
+
+    <resultMap id="ServiceMap" type="ServiceDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="urlDataList" column="urlDataList" select="kr.co.m_n09.daos.UrlDataDao.fetchUrlDataListByServiceId"/>
+    </resultMap>
+
+    <select id="fetchAllServices" resultMap="ServiceMap">
+        SELECT
+            <include refid="column"></include>
+        FROM tbl_services
+    </select>
+
+    <insert id="createService" parameterType="Service">
+        INSERT INTO tbl_services
+        VALUES (
+            #{id},
+            #{name}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="modifyService">
+        UPDATE tbl_services
+        SET
+            name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <select id="fetchServiceById" resultType="Service">
+        SELECT
+            <include refid="column"></include>
+        FROM tbl_services
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteService">
+        DELETE FROM tbl_services
+        WHERE id = #{id}
+    </delete>
+</mapper>

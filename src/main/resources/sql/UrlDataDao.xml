@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="kr.co.m_n09.daos.UrlDataDao">
+
+    <sql id="column">
+        ID id,
+        NAME name,
+        url url,
+        service_id serviceId
+    </sql>
+
+    <select id="fetchUrlDataListByServiceId" resultType="UrlData">
+        SELECT <include refid="column"/>
+        FROM tbl_urls
+        WHERE service_id = #{serviceId}
+    </select>
+
+    <insert id="createUrlData" parameterType="UrlData">
+        INSERT INTO tbl_urls
+        VALUES (
+            #{id},
+            #{name},
+            #{url}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="modifyUrlData">
+        UPDATE tbl_urls
+        SET
+            name = #{name},
+            url = #{url}
+        WHERE id = #{id}
+    </update>
+
+    <select id="fetchUrlDataById" resultType="UrlData">
+        SELECT
+            <include refid="column"></include>
+        FROM tbl_urls
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteUrlData">
+        DELETE FROM tbl_urls
+        WHERE id = #{id}
+    </delete>
+</mapper>
