@@ -13,9 +13,11 @@ public interface ServiceDao {
 
     void createService(Service service);
 
+    int fetchServiceIdByName(String name);
+
     void modifyService(Service service);
 
     int deleteService(int id);
 
-    Service fetchServiceById(int id);
+    ServiceDto fetchServiceById(int id);
 }

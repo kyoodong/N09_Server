@@ -11,6 +11,8 @@ public interface ServiceRepository {
 
     Service createService(Service service);
 
+    int fetchServiceIdByName(String name);
+
     Service modifyService(Service service);
 
     int deleteService(int id);

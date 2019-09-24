@@ -19,6 +19,16 @@ public class ServiceController {
         return serviceService.fetchAllServices();
     }
 
+    @GetMapping("{id}")
+    public ServiceDto fetchServiceById(@PathVariable int id) {
+        return serviceService.fetchServiceById(id);
+    }
+
+    @GetMapping("id/name/{name}")
+    public int fetchServiceIdByName(@PathVariable String name) {
+        return serviceService.fetchServiceIdByName(name);
+    }
+
     @PostMapping("")
     public Service createService(@RequestBody Service service) {
         return serviceService.createService(service);

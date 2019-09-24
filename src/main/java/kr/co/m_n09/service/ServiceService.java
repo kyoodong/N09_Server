@@ -18,9 +18,17 @@ public class ServiceService implements ServiceRepository {
         return serviceDao.fetchAllServices();
     }
 
+    public ServiceDto fetchServiceById(int id) {
+        return serviceDao.fetchServiceById(id);
+    }
+
     public Service createService(Service service) {
         serviceDao.createService(service);
         return serviceDao.fetchServiceById(service.getId());
+    }
+
+    public int fetchServiceIdByName(String name) {
+        return serviceDao.fetchServiceIdByName(name);
     }
 
     @Transactional

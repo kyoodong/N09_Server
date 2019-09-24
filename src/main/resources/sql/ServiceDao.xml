@@ -20,6 +20,11 @@
         FROM tbl_services
     </select>
 
+    <select id="fetchServiceIdByName" resultType="Integer">
+        SELECT id FROM tbl_services
+        WHERE name = #{name}
+    </select>
+
     <insert id="createService" parameterType="Service">
         INSERT INTO tbl_services
         VALUES (
@@ -38,7 +43,7 @@
         WHERE id = #{id}
     </update>
 
-    <select id="fetchServiceById" resultType="Service">
+    <select id="fetchServiceById" resultMap="ServiceMap">
         SELECT
             <include refid="column"></include>
         FROM tbl_services
