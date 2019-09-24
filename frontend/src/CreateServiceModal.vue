@@ -22,7 +22,7 @@ export default {
         id: 0,
         name: this.name
       }
-      this.$http.post(this.$baseUrl + 'services', data)
+      this.$http.post(`${this.$baseUrl}/services`, data)
         .then(result => {
           if (result.status === 200) {
             this.$emit('on-create-service', result.data)

@@ -21,7 +21,8 @@
         VALUES (
             #{id},
             #{name},
-            #{url}
+            #{url},
+            #{serviceId}
         )
         <selectKey resultType="int" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()

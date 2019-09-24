@@ -10,7 +10,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 
 Vue.prototype.$http = axios
-Vue.prototype.$baseUrl = "http://localhost:1234/"
+Vue.prototype.$baseUrl = "http://localhost:1234"
 
 const routes = [
   {

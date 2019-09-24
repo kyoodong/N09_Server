@@ -1,6 +1,6 @@
 <template>
   <b-tab :title="service.name" active>
-    <b-button @click="">URL 생성</b-button>
+    <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
     <b-table-simple hover small>
       <b-thead>
         <b-tr>
@@ -10,7 +10,7 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr v-for="(data, index) in urlList" v-bind:key="data.id">
+        <b-tr v-for="(data, index) in service.urlDataList" v-bind:key="data.id">
           <b-td>{{ data.name }}</b-td>
           <b-td>{{ data.url }}</b-td>
           <b-td>
@@ -28,10 +28,9 @@
 <script>
 export default {
   name: 'tab',
-  props: ['service', 'urlList'],
-  data () {
-    return {
-    }
+  props: ['service'],
+  created() {
+    console.log(this.service)
   },
   methods: {
     deleteUrl(index) {
@@ -41,7 +40,7 @@ export default {
 
     },
     deleteService() {
-      this.$http.delete(`${this.$baseUrl}services/${this.service.id}`)
+      this.$http.delete(`${this.$baseUrl}/services/${this.service.id}`)
         .then(result => {
           if (result.status === 200) {
             this.$emit('on-delete-service', this.service.id)

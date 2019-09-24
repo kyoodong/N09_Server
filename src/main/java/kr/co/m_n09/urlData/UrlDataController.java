@@ -12,12 +12,12 @@ public class UrlDataController {
     private UrlDataService urlDataService;
 
     @PostMapping("")
-    public UrlData createUrlData(UrlData urlData) {
+    public UrlData createUrlData(@RequestBody UrlData urlData) {
         return urlDataService.createUrlData(urlData);
     }
 
     @PutMapping("{id}")
-    public UrlData modifyUrlData(@PathVariable int id, UrlData urlData) {
+    public UrlData modifyUrlData(@PathVariable int id, @RequestBody UrlData urlData) {
         urlData.setId(id);
         return urlDataService.modifyUrlData(urlData);
     }

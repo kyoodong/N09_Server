@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.put(`${this.$baseUrl}services/${this.service.id}`, this.modifyingService)
+      this.$http.put(`${this.$baseUrl}/services/${this.service.id}`, this.modifyingService)
         .then(result => {
           if (result.status === 200) {
             this.$emit('on-modify-service', result.data)
