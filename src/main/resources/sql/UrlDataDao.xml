@@ -7,13 +7,15 @@
         ID id,
         NAME name,
         url url,
-        service_id serviceId
+        service_id serviceId,
+        priority priority
     </sql>
 
     <select id="fetchUrlDataListByServiceId" resultType="UrlData">
         SELECT <include refid="column"/>
         FROM tbl_urls
         WHERE service_id = #{serviceId}
+        ORDER BY priority ASC
     </select>
 
     <insert id="createUrlData" parameterType="UrlData">
@@ -22,7 +24,8 @@
             #{id},
             #{name},
             #{url},
-            #{serviceId}
+            #{serviceId},
+            #{priority}
         )
         <selectKey resultType="int" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -33,7 +36,8 @@
         UPDATE tbl_urls
         SET
             name = #{name},
-            url = #{url}
+            url = #{url},
+            priority = #{priority}
         WHERE id = #{id}
     </update>
 

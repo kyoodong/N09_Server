@@ -6,15 +6,24 @@ public class UrlData {
     private String name;
     private String url;
     private int serviceId;
-
+    private int priority;
 
     public UrlData() {}
 
-    public UrlData(int id, String name, String url, int serviceId) {
+    public UrlData(int id, String name, String url, int serviceId, int priority) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.serviceId = serviceId;
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public int getId() {
