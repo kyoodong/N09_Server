@@ -11,6 +11,7 @@
         @click="onClickTab(service)"
         @on-delete-service="onDeleteService"
         @on-modify-service="onShowModifyService"
+        @on-show-modify-url="onShowModifyUrlData"
         ></tab>
     </b-tabs>
 
@@ -21,6 +22,9 @@
     <create-url-modal
       :service="service"
       @on-create-url="onCreateUrl"/>
+    <modify-url-modal
+      :urlData="urlData"
+      @on-modify-url="onModifyUrl"></modify-url-modal>
   </div>
 </template>
 
@@ -29,6 +33,7 @@ import Tab from './Tab'
 import CreateServiceModal from './CreateServiceModal'
 import ModifyServiceModal from './ModifyServiceModal'
 import CreateUrlModal from './CreateUrlModal'
+import ModifyUrlModal from './ModifyUrlModal'
 
 export default {
   name: 'main-view',
@@ -36,7 +41,8 @@ export default {
     tab: Tab,
     createServiceModal: CreateServiceModal,
     modifyServiceModal: ModifyServiceModal,
-    createUrlModal: CreateUrlModal
+    createUrlModal: CreateUrlModal,
+    modifyUrlModal: ModifyUrlModal
   },
   created() {
     this.fetchAllServices()
@@ -64,6 +70,10 @@ export default {
         }
       }
     },
+    onShowModifyUrlData(urlData) {
+      this.urlData = urlData
+      this.$bvModal.show('modify-url-modal')
+    },
     onDeleteService(id) {
       this.serviceList = this.serviceList.filter(service => service.id !== id)
     },
@@ -83,12 +93,25 @@ export default {
           break
         }
       }
+    },
+    onModifyUrl(urlData) {
+      for (var i = 0; i < this.serviceList.length; i++) {
+        if (this.serviceList[i].id === urlData.serviceId) {
+          for (var j = 0; j < this.serviceList[i].urlDataList.length; j++) {
+            if (this.serviceList[i].urlDataList[j].id === urlData.id) {
+              this.$set(this.serviceList[i].urlDataList, j, urlData)
+            }
+          }
+          break
+        }
+      }
     }
   },
   data() {
     return {
       serviceList: [],
-      service: {}
+      service: {},
+      urlData: {}
     }
   }
 }

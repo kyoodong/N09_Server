@@ -15,7 +15,7 @@
           <b-td>{{ data.url }}</b-td>
           <b-td>
             <b-button @click="deleteUrl(index)" variant="danger">삭제</b-button>
-            <b-button @click="modifyUrl(index)">수정</b-button>
+            <b-button @click="$emit('on-show-modify-url', service.urlDataList[index])">수정</b-button>
           </b-td>
         </b-tr>
       </b-tbody>
@@ -29,14 +29,8 @@
 export default {
   name: 'tab',
   props: ['service'],
-  created() {
-    console.log(this.service)
-  },
   methods: {
     deleteUrl(index) {
-
-    },
-    modifyUrl(index) {
 
     },
     deleteService() {
@@ -46,6 +40,10 @@ export default {
             this.$emit('on-delete-service', this.service.id)
           }
         })
+    }
+  },
+  data() {
+    return {
     }
   }
 }

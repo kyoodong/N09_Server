@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modify-service-modal" title="서비스 생성" @ok="submit">
+  <b-modal id="modify-service-modal" title="서비스 수정" @ok="submit">
     <div>
       <b-input-group size="sm" prepend="이름">
         <b-form-input v-model="modifyingService.name"></b-form-input>
@@ -15,7 +15,6 @@ export default {
   watch: {
     service() {
       this.modifyingService = JSON.parse(JSON.stringify(this.service))
-      console.log(this.modifyingService)
     }
   },
   data() {
