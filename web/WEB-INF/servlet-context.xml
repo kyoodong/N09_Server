@@ -15,6 +15,17 @@
 
     <mvc:resources mapping="/dist/**" location="/frontend/dist/"/>
     <mvc:resources mapping="/frontend/**" location="/frontend/"/>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/frontend/**"/>
+            <mvc:exclude-mapping path="/dist/**"/>
+            <mvc:exclude-mapping path="/admins/login"/>
+            <bean id="jwtInterceptor"
+                class="kr.co.m_n09.interceptors.JwtInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
