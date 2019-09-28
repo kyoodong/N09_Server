@@ -13,6 +13,10 @@ public class JwtInterceptor implements HandlerInterceptor {
     private static final String HEADER_AUTH = "Auth-Token";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (request.getRequestURI().contains("publicKey")) {
+            return true;
+        }
+
         String token = request.getHeader(HEADER_AUTH);
         if (token != null && checkVerification(token)) {
             return true;

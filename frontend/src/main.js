@@ -3,6 +3,7 @@ import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import VueCookies from 'vue-cookies'
+import SHA512 from 'js-sha512'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
@@ -14,15 +15,19 @@ Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(VueCookies)
+// Vue.use(RSAJSEncrypt)
 
 VueCookies.config('7d')
 
+axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
 Vue.prototype.$baseUrl = "http://localhost:1234"
+Vue.prototype.$sha512 = SHA512
 
 const store = new Vuex.Store({
   state: {
     token: VueCookies.get('Auth-token')
+    // token: ''
   },
   mutations: {
     logout (state) {
@@ -54,12 +59,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    console.log(store.state.token)
     if (store.state.token) {
-      console.log('next')
       next()
     } else {
-      console.log('login')
       router.push({
         path: 'login'
       })

@@ -6,12 +6,18 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.crypto.Cipher;
+import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
 import java.security.Key;
+import java.security.MessageDigest;
+import java.security.PrivateKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +31,9 @@ public class AdminController {
 
     public static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
+    //n09app!admin
     @GetMapping("login")
-    public ResponseEntity<String> login(@RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam String password) throws Exception {
         int count = adminService.login(password);
         if (count > 0) {
             // 30분
