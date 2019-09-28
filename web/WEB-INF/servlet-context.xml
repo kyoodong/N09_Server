@@ -38,7 +38,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id = "imageDirectoryPath" class="java.lang.String">
+    <bean id="imageDirectoryPath" class="java.lang.String">
         <constructor-arg value="images">
         </constructor-arg>
     </bean>
