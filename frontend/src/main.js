@@ -71,6 +71,17 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+axios.interceptors.response.use(
+  response => response,
+  (error) => {
+    if (error.response.status === 401) {
+      router.replace({
+        name: 'login'
+      })
+    }
+  }
+)
+
 new Vue({
   el: '#app',
   router,

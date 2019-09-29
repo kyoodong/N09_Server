@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <h1>관리자 페이지</h1>
-    <b-button @click="$bvModal.show('create-service-modal')">서비스 추가</b-button>
+    <b-button class="float-right" @click="$bvModal.show('create-service-modal')">서비스 추가</b-button>
     <b-tabs content-class="mt-3"@input="changedTab">
       <tab
         :service="service"

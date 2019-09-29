@@ -1,6 +1,5 @@
 <template>
   <b-tab :title="service.name" active>
-    <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
     <b-table-simple hover small>
       <b-thead>
         <b-tr>
@@ -22,6 +21,7 @@
         </b-tr>
       </b-tbody>
     </b-table-simple>
+    <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
     <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
     <b-button variant="primary" @click="$emit('on-modify-service', service)">서비스 수정</b-button>
   </b-tab>
