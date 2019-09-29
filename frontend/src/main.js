@@ -21,7 +21,7 @@ VueCookies.config('7d')
 
 axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
-Vue.prototype.$baseUrl = "http://localhost:1234"
+Vue.prototype.$baseUrl = ""
 Vue.prototype.$sha512 = SHA512
 
 const store = new Vuex.Store({
@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
 axios.interceptors.response.use(
   response => response,
   (error) => {
-    if (error.response.status === 401) {
+    if (error.response != null && error.response.status === 401) {
       router.replace({
         name: 'login'
       })
