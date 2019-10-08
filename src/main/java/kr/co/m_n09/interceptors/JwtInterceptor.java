@@ -20,6 +20,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if (request.getRequestURI().startsWith("/tokens")) {
+            return true;
+        }
+
         String token = request.getHeader(HEADER_AUTH);
         if (token != null && checkVerification(token)) {
             return true;

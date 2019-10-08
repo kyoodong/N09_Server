@@ -22,14 +22,22 @@
       </b-tbody>
     </b-table-simple>
     <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
+    <b-button @click="$bvModal.show('push-modal')">푸시 생성</b-button>
     <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
     <b-button variant="primary" @click="$emit('on-modify-service', service)">서비스 수정</b-button>
+    <push-modal
+      :service="service"
+      @on-push-sent="onPushSent"></push-modal>
   </b-tab>
 </template>
 
 <script>
+import PushModal from './PushModal'
 export default {
   name: 'tab',
+  components: {
+    PushModal: PushModal
+  },
   props: ['service'],
   computed: {
     sortedUrlDataList() {
@@ -60,6 +68,9 @@ export default {
             this.$emit('on-delete-service', this.service.id)
           }
         })
+    },
+    onPushSent(result) {
+      console.log(result)
     }
   },
   data() {

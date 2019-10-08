@@ -4,15 +4,24 @@
 <mapper namespace="kr.co.m_n09.daos.UserDao">
 
     <sql id="column">
-        DEVICE_ID id,
-        TOKEN token
+        ID id,
+        NAME name,
+        PASSWORD password
     </sql>
 
-    <insert id="createToken">
+    <insert id="createUser">
         INSERT INTO tbl_users
         VALUES (
-            #{deviceId},
-            #{token}
+            #{id},
+            #{name},
+            #{password}
         )
     </insert>
+
+    <select id="selectUserByIdPw" resultType="User">
+        SELECT <include refid="column"/>
+        FROM tbl_users
+        WHERE id = #{id}
+        AND password = #{password}
+    </select>
 </mapper>

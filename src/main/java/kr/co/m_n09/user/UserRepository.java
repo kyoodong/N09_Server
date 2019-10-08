@@ -1,8 +1,10 @@
 package kr.co.m_n09.user;
 
-import kr.co.m_n09.vos.Token;
+import kr.co.m_n09.vos.User;
 
 public interface UserRepository {
 
-    void registerToken(Token token);
+    User signUp(User user);
+
+    User getUserByIdPw(String id, String password);
 }

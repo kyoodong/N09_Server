@@ -2,25 +2,26 @@ package kr.co.m_n09.vos;
 
 public class Token {
 
-    private String deviceId;
+    private String id;
     private String token;
-
+    private int serviceId;
 
     public Token() {
 
     }
 
-    public Token(String deviceId, String token) {
-        this.deviceId = deviceId;
+    public Token(String id, String token, int serviceId) {
+        this.id = id;
         this.token = token;
+        this.serviceId = serviceId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getToken() {
@@ -29,5 +30,13 @@ public class Token {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 }

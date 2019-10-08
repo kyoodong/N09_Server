@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="kr.co.m_n09.daos.TokenDao">
+
+    <sql id="column">
+        ID id,
+        TOKEN token,
+        SERVICE_ID serviceId
+    </sql>
+
+    <insert id="createToken">
+        INSERT INTO tbl_tokens
+        VALUES (
+            #{id},
+            #{token},
+            #{serviceId}
+        )
+    </insert>
+
+    <select id="selectAllUsersByServiceId" resultType="Token">
+        SELECT <include refid="column"/>
+        FROM tbl_tokens
+        WHERE service_id = #{serviceId}
+    </select>
+
+    <select id="selectUserById" resultType="Token">
+        SELECT <include refid="column"/>
+        FROM tbl_tokens
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateUser">
+        UPDATE tbl_tokens
+        SET
+            token = #{token}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

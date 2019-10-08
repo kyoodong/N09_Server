@@ -1,2 +1,2 @@
-# WayjjangAdServer
-웨이짱 광고 서버
+# M.N09
+M.n09 서버
