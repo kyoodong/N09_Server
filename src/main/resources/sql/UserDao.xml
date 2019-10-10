@@ -7,7 +7,8 @@
         ID id,
         NAME name,
         PASSWORD password,
-        SERVICE_ID serviceId
+        SERVICE_ID serviceId,
+        SALT salt
     </sql>
 
     <insert id="createUser">
@@ -16,7 +17,8 @@
             #{id},
             #{name},
             #{password},
-            #{serviceId}
+            #{serviceId},
+            #{salt}
         )
     </insert>
 

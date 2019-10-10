@@ -4,6 +4,7 @@ public class User {
     private String id;
     private String name;
     private String password;
+    private String salt;
     private int serviceId;
 
     public String getId() {
@@ -36,5 +37,13 @@ public class User {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
