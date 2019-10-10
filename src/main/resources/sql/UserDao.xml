@@ -29,4 +29,11 @@
         AND password = #{password}
         AND service_id = #{serviceId}
     </select>
+
+    <select id="selectSaltByUserId" resultType="String">
+        SELECT salt
+        FROM tbl_users
+        WHERE id = #{id}
+        AND service_id = #{serviceId}
+    </select>
 </mapper>

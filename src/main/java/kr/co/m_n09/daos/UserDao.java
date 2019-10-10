@@ -16,4 +16,6 @@ public interface UserDao {
             @Param("id") String id,
             @Param("password") String password,
             @Param("serviceId") int serviceId);
+
+    String selectSaltByUserId(@Param("id") String id, @Param("serviceId") int serviceId);
 }
