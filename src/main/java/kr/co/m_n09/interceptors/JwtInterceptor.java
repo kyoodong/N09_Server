@@ -12,15 +12,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     private static final String HEADER_AUTH = "Auth-Token";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getRequestURI().equals("/")) {
-            return true;
-        }
-
-        if (request.getRequestURI().startsWith("/services") && request.getMethod().toLowerCase().equals("get")) {
-            return true;
-        }
-
-        if (request.getRequestURI().startsWith("/tokens")) {
+        if (!request.getRequestURI().startsWith("/admin")) {
             return true;
         }
 

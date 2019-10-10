@@ -6,5 +6,5 @@ public interface UserRepository {
 
     User signUp(User user);
 
-    User getUserByIdPw(String id, String password);
+    User getUserByIdPw(String id, String password, int serviceId);
 }

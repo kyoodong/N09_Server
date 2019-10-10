@@ -11,13 +11,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("")
-    public User signUp(@RequestBody User user) {
+    @PostMapping("services/{serviceId}")
+    public User signUp(@RequestBody User user, @PathVariable int serviceId) {
+        user.setServiceId(serviceId);
         return userService.signUp(user);
     }
 
     @GetMapping("login")
-    public User login(@RequestParam String id, @RequestParam String password) {
-        return userService.getUserByIdPw(id, password);
+    public User login(@RequestParam String id, @RequestParam String password, @RequestParam int serviceId) {
+        return userService.getUserByIdPw(id, password, serviceId);
     }
 }

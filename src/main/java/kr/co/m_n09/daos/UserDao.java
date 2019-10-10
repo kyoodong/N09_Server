@@ -2,6 +2,7 @@ package kr.co.m_n09.daos;
 
 import kr.co.m_n09.vos.Token;
 import kr.co.m_n09.vos.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,5 +12,8 @@ public interface UserDao {
 
     void createUser(User user);
 
-    User selectUserByIdPw(String id, String password);
+    User selectUserByIdPw(
+            @Param("id") String id,
+            @Param("password") String password,
+            @Param("serviceId") int serviceId);
 }

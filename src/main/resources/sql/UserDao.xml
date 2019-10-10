@@ -6,7 +6,8 @@
     <sql id="column">
         ID id,
         NAME name,
-        PASSWORD password
+        PASSWORD password,
+        SERVICE_ID serviceId
     </sql>
 
     <insert id="createUser">
@@ -14,7 +15,8 @@
         VALUES (
             #{id},
             #{name},
-            #{password}
+            #{password},
+            #{serviceId}
         )
     </insert>
 
@@ -23,5 +25,6 @@
         FROM tbl_users
         WHERE id = #{id}
         AND password = #{password}
+        AND service_id = #{serviceId}
     </select>
 </mapper>

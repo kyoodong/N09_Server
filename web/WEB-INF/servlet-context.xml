@@ -10,7 +10,11 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
     <context:component-scan base-package="kr.co.m_n09"/>
 
     <mvc:resources mapping="/dist/**" location="/frontend/dist/"/>
@@ -24,6 +28,10 @@
             <mvc:exclude-mapping path="/admins/login"/>
             <bean id="jwtInterceptor"
                 class="kr.co.m_n09.interceptors.JwtInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 
