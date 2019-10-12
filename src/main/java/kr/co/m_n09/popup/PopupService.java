@@ -33,14 +33,7 @@ public class PopupService implements PopupRepository {
         return popupDao.selectAllPopupList(serviceId);
     }
 
-    public Popup modifyPopup(PopupDto popup, String imageDirectoryPath) throws Exception {
-        Popup existedPopup = popupDao.selectPopup(popup.getId());
-        if (popup.getImage() != null) {
-            popup.setImageUrl(FileManager.saveImage(popup.getImage(), imageDirectoryPath));
-            File imageFile = new File(imageDirectoryPath + File.separator + existedPopup.getImageUrl());
-            imageFile.deleteOnExit();
-        }
-
+    public Popup modifyPopup(Popup popup, String imageDirectoryPath) throws Exception {
         popupDao.updatePopup(popup);
         return popup;
     }

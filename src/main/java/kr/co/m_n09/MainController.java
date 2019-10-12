@@ -2,11 +2,11 @@ package kr.co.m_n09;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -30,5 +30,15 @@ public class MainController {
         File file = new File(request.getSession().getServletContext().getRealPath(imageDirectoryPath) + File.separator + fileName);
         InputStream is = new FileInputStream(file);
         return IOUtils.toByteArray(is);
+    }
+
+    @PostMapping("images")
+    @ResponseBody
+    public ResponseEntity<String> setImage(@RequestParam String fileName, @RequestParam MultipartFile imageFile, HttpServletRequest request) throws Exception {
+        if (imageFile == null)
+            return new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+
+        FileManager.changeImage(imageFile, request.getSession().getServletContext().getRealPath(imageDirectoryPath) + File.separator + fileName);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 }

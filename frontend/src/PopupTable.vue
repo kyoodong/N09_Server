@@ -19,7 +19,7 @@
           <b-td>{{ timeToString(popup.createdAt) }}</b-td>
           <b-td>
             <b-button @click="deletePopup(index)" variant="danger">삭제</b-button>
-            <b-button @click="$emit('on-show-modify-url', service.urlDataList[index])">수정</b-button>
+            <b-button @click="modifyingPopupIndex = index, $bvModal.show('modify-popup-modal')">수정</b-button>
           </b-td>
         </b-tr>
       </b-tbody>
@@ -27,16 +27,21 @@
     <b-button variant="primary" @click="$bvModal.show('create-popup-modal')">팝업 추가</b-button>
     <create-popup-modal :service="service"
       @on-create-popup="onCreatePopup"/>
+
+    <modify-popup-modal :popup="sortedPopupDataList[modifyingPopupIndex]"
+      @on-modify-popup="onModifyPopup"
+      @on-modify-popup-image="onModifyPopupImage"/>
   </div>
 </template>
 
 <script>
 import CreatePopupModal from './CreatePopupModal'
-import ModifyPopupModal from './CreatePopupModal'
+import ModifyPopupModal from './ModifyPopupModal'
 export default {
   name: 'popupTable',
   components: {
-    CreatePopupModal: CreatePopupModal
+    CreatePopupModal: CreatePopupModal,
+    ModifyPopupModal: ModifyPopupModal
   },
   props: ['service'],
   computed: {
@@ -52,6 +57,22 @@ export default {
   methods: {
     onCreatePopup(popup) {
       this.service.popupList.push(popup)
+    },
+    onModifyPopup(popup) {
+      this.$set(this.service.popupList, this.modifyingPopupIndex, popup)
+    },
+    onModifyPopupImage(id) {
+      for (var i = 0; i < this.service.popupList.length; i++) {
+        if (this.service.popupList[i].id === id) {
+          // this.$set(this.service.popupList, i, this.service.popupList[i])
+          let imageUrl = this.service.popupList[i].imageUrl
+          this.service.popupList[i].imageUrl = ''
+          this.$nextTick(() => {
+            this.service.popupList[i].imageUrl = imageUrl
+          })
+          break
+        }
+      }
     },
     timeToString(time) {
       let date = new Date(time)
@@ -72,6 +93,7 @@ export default {
   },
   data() {
     return {
+      modifyingPopupIndex: -1
     }
   }
 }

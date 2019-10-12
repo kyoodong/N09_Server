@@ -1,8 +1,5 @@
 package kr.co.m_n09.filters;
 
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DeviceUtils;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +17,7 @@ public class CorsFilter implements Filter {
 //        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, PATCH, OPTIONS");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, auth-token");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, auth-token, x-http-method-override");
         response.setHeader("Access-Control-Allow-Credentials", "true");
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;

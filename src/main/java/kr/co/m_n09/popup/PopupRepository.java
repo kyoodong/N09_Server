@@ -13,7 +13,7 @@ public interface PopupRepository {
 
     List<Popup> getAllPopupList(int serviceId);
 
-    Popup modifyPopup(PopupDto popup, String imageDirectoryPath) throws Exception;
+    Popup modifyPopup(Popup popup, String imageDirectoryPath) throws Exception;
 
     void deletePopup(int id, String imageDirectoryPath) throws Exception;
 }

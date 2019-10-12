@@ -33,4 +33,17 @@ public class FileManager {
             return null;
         }
     }
+
+    public static boolean changeImage(MultipartFile imageFile, String originalImage) {
+        try {
+            File file = new File(originalImage);
+            file.deleteOnExit();
+            FileCopyUtils.copy(imageFile.getBytes(), file);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return false;
+        }
+    }
 }

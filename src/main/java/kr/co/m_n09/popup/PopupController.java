@@ -37,7 +37,7 @@ public class PopupController {
     }
 
     @PutMapping("{id}")
-    public Popup modifyPopup(@PathVariable int id, @RequestBody PopupDto popup, HttpServletRequest request) throws Exception {
+    public Popup modifyPopup(@PathVariable int id, @RequestBody Popup popup, HttpServletRequest request) throws Exception {
         popup.setId(id);
         return pageAdService.modifyPopup(popup, request.getSession().getServletContext().getRealPath(imageDirectoryPath));
     }
