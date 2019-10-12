@@ -23,6 +23,11 @@
     </b-table-simple>
     <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
     <b-button @click="$bvModal.show('push-modal')">푸시 생성</b-button>
+
+    <hr/>
+
+    <popup-table :service="service"></popup-table>
+
     <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
     <b-button variant="primary" @click="$emit('on-modify-service', service)">서비스 수정</b-button>
     <push-modal
@@ -33,10 +38,12 @@
 
 <script>
 import PushModal from './PushModal'
+import PopupTable from './PopupTable'
 export default {
   name: 'tab',
   components: {
-    PushModal: PushModal
+    PushModal: PushModal,
+    PopupTable: PopupTable
   },
   props: ['service'],
   computed: {

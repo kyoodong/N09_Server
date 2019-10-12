@@ -12,6 +12,7 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <collection property="urlDataList" column="{serviceId=id}" select="kr.co.m_n09.daos.UrlDataDao.fetchUrlDataListByServiceId"/>
+        <collection property="popupList" column="{serviceId=id}" select="kr.co.m_n09.daos.PopupDao.selectAllPopupList"/>
     </resultMap>
 
     <select id="fetchAllServices" resultMap="ServiceMap">

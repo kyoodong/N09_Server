@@ -1,20 +1,18 @@
 package kr.co.m_n09.vos;
 
+import java.util.Date;
+
 public class Popup {
 
     private int id;
     private String name;
+    private String url;
     private String imageUrl;
-    private String linkUrl;
+    private int serviceId;
+    private Date createdAt;
 
     public Popup() {
 
-    }
-    public Popup(int id, String name, String imageUrl, String linkUrl) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.linkUrl = linkUrl;
     }
 
     public int getId() {
@@ -33,6 +31,22 @@ public class Popup {
         this.name = name;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -41,11 +55,11 @@ public class Popup {
         this.imageUrl = imageUrl;
     }
 
-    public String getLinkUrl() {
-        return linkUrl;
+    public int getServiceId() {
+        return serviceId;
     }
 
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 }

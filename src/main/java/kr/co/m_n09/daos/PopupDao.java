@@ -1,7 +1,6 @@
 package kr.co.m_n09.daos;
 
 import kr.co.m_n09.vos.Popup;
-import kr.co.m_n09.vos.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,9 +8,15 @@ import java.util.List;
 @Repository
 public interface PopupDao {
 
-    void createPopup(Popup popup);
+    void insertPopup(Popup popup);
 
-    List<Popup> selectPopupListByServiceId(int serviceId);
+    Popup selectLatestPopup(int serviceId);
 
-    Popup selectPopupById(int id);
+    Popup selectPopup(int id);
+
+    List<Popup> selectAllPopupList(int serviceId);
+
+    void updatePopup(Popup popup);
+
+    void deletePopup(int id);
 }

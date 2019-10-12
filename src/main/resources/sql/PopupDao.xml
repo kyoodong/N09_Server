@@ -6,19 +6,21 @@
     <sql id="column">
         ID id,
         NAME name,
+        URL url,
         IMAGE_URL imageUrl,
-        LINK_URL linkUrl,
-        SERVICE_ID serviceId
+        SERVICE_ID serviceId,
+        CREATED_AT createdAt
     </sql>
 
-    <insert id="createPopup" parameterType="Popup">
+    <insert id="insertPopup" parameterType="Popup">
         INSERT INTO tbl_popups
         VALUES (
             #{id},
             #{name},
+            #{url},
             #{imageUrl},
-            #{linkUrl},
-            #{serviceId}
+            #{serviceId},
+            NOW()
         )
 
         <selectKey resultType="int" keyProperty="id" order="AFTER">
@@ -26,16 +28,37 @@
         </selectKey>
     </insert>
 
-    <select id="selectPopupListByServiceId" resultType="Popup">
-        SELECT <include refid="column"/>
+    <select id="selectLatestPopup" resultType="Popup">
+        SELECT <include refid="column"/>, MAX(created_at)
         FROM tbl_popups
         WHERE service_id = #{serviceId}
     </select>
 
-    <select id="selectPopupById" resultType="Popup">
+    <select id="selectAllPopupList" resultType="Popup">
+        SELECT <include refid="column"/>
+        FROM tbl_popups
+        WHERE service_id = #{serviceId}
+        ORDER BY created_at DESC
+    </select>
+
+    <update id="updatePopup">
+        UPDATE tbl_popups
+        SET
+            name = #{name},
+            url = #{url},
+            image_url = #{imageUrl},
+            created_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePopup">
+        DELETE FROM tbl_popups
+        WHERE id = #{id}
+    </delete>
+
+    <select id="selectPopup" resultType="Popup">
         SELECT <include refid="column"/>
         FROM tbl_popups
         WHERE id = #{id}
     </select>
-
 </mapper>

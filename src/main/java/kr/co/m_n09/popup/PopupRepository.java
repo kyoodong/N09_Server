@@ -1,14 +1,19 @@
 package kr.co.m_n09.popup;
 
+import kr.co.m_n09.dtos.PopupDto;
 import kr.co.m_n09.vos.Popup;
-import kr.co.m_n09.vos.Token;
-import kr.co.m_n09.vos.User;
 
 import java.util.List;
 
 public interface PopupRepository {
 
-    Popup createPopup(Popup popup);
+    Popup createPopup(PopupDto popup, String imagePath) throws Exception;
 
-    List<Popup> getPopupListByServiceId(int serviceId);
+    Popup getLatestPopup(int serviceId);
+
+    List<Popup> getAllPopupList(int serviceId);
+
+    Popup modifyPopup(PopupDto popup, String imageDirectoryPath) throws Exception;
+
+    void deletePopup(int id, String imageDirectoryPath) throws Exception;
 }
