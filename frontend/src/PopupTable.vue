@@ -16,9 +16,9 @@
           <b-td>{{ popup.name }}</b-td>
           <b-td>{{ popup.url }}</b-td>
           <b-td><img class="popup-image" :src="$baseUrl + '/images?fileName=' + popup.imageUrl"></b-td>
-          <b-td>{{ popup.createdAt }}</b-td>
+          <b-td>{{ timeToString(popup.createdAt) }}</b-td>
           <b-td>
-            <b-button @click="deleteUrl(index)" variant="danger">삭제</b-button>
+            <b-button @click="deletePopup(index)" variant="danger">삭제</b-button>
             <b-button @click="$emit('on-show-modify-url', service.urlDataList[index])">수정</b-button>
           </b-td>
         </b-tr>
@@ -52,6 +52,22 @@ export default {
   methods: {
     onCreatePopup(popup) {
       this.service.popupList.push(popup)
+    },
+    timeToString(time) {
+      let date = new Date(time)
+      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getUTCDate()}일 ${date.getUTCHours()}시 ${date.getUTCMinutes()}분`
+    },
+    deletePopup(index) {
+      this.$http.delete(`${this.$baseUrl}/popups/${this.sortedPopupDataList[index].id}`)
+        .then(result => {
+          if (result.status === 200) {
+            for (var i = 0; i < this.service.popupList.length; i++) {
+              if (this.service.popupList[i].id === this.sortedPopupDataList[index].id) {
+                this.service.popupList.splice(i, 1)
+              }
+            }
+          }
+        })
     }
   },
   data() {
