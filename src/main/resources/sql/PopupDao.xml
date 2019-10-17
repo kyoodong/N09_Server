@@ -29,9 +29,10 @@
     </insert>
 
     <select id="selectLatestPopup" resultType="Popup">
-        SELECT <include refid="column"/>, MAX(created_at)
+        SELECT <include refid="column"/>
         FROM tbl_popups
         WHERE service_id = #{serviceId}
+        ORDER BY created_at DESC limit 1
     </select>
 
     <select id="selectAllPopupList" resultType="Popup">
