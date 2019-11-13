@@ -10,6 +10,9 @@
       <b-input-group size="sm" prepend="링크" class="mt-3">
         <b-form-input v-model="pushData.url"></b-form-input>
       </b-input-group>
+      <b-input-group size="sm" prepend="이미지 URL(링크)" class="mt-3">
+        <b-form-input v-model="pushData.imageUrl"></b-form-input>
+      </b-input-group>
     </div>
   </b-modal>
 </template>
@@ -26,9 +29,10 @@ export default {
   data() {
     return {
       pushData: {
-        title: '타이틀',
-        content: '컨텐츠',
-        url: 'url',
+        title: '',
+        content: '',
+        url: '',
+        imageUrl: '',
         serviceId: this.service.id
       }
     }

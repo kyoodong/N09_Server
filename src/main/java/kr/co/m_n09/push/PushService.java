@@ -58,16 +58,29 @@ public class PushService {
 
         MulticastMessage message = MulticastMessage.builder()
                 .putData("url", push.getUrl())
+                .putData("title", push.getTitle())
+                .putData("content", push.getContent())
+                .putData("imageUrl", push.getImageUrl())
                 .setNotification(
                         new Notification(
                                 push.getTitle(),
-                                push.getContent()
+                                push.getContent(),
+                                push.getImageUrl()
                         )
                 )
+                .setApnsConfig(ApnsConfig.builder()
+                        .setAps(Aps.builder()
+                                .setContentAvailable(true)
+                                .setMutableContent(true)
+                                .build())
+                        .setFcmOptions(ApnsFcmOptions.builder()
+                                .setImage(push.getImageUrl()).build())
+                        .build())
                 .addAllTokens(tokenStringList)
                 .build();
 
         BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendMulticast(message);
-        System.out.println(response);
+        System.out.println("Push Success " +response.getSuccessCount() + "/" + tokenList.size());
+        System.out.println("Image " + push.getImageUrl());
     }
 }

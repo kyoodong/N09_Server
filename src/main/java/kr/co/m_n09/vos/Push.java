@@ -6,6 +6,7 @@ public class Push {
     private String title;
     private String content;
     private String url;
+    private String imageUrl;
 
     public String getTitle() {
         return title;
@@ -37,5 +38,13 @@ public class Push {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

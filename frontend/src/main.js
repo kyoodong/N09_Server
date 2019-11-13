@@ -21,8 +21,8 @@ VueCookies.config('7d')
 
 axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
-Vue.prototype.$baseUrl = "http://localhost:1234"
-// Vue.prototype.$baseUrl = ""
+// Vue.prototype.$baseUrl = "http://localhost:1234"
+Vue.prototype.$baseUrl = ""
 Vue.prototype.$sha512 = SHA512
 
 const store = new Vuex.Store({
