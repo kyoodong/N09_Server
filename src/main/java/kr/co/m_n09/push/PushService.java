@@ -61,17 +61,16 @@ public class PushService {
                 .putData("title", push.getTitle())
                 .putData("content", push.getContent())
                 .putData("imageUrl", push.getImageUrl())
-                .setNotification(
-                        new Notification(
-                                push.getTitle(),
-                                push.getContent(),
-                                push.getImageUrl()
-                        )
-                )
                 .setApnsConfig(ApnsConfig.builder()
                         .setAps(Aps.builder()
                                 .setContentAvailable(true)
                                 .setMutableContent(true)
+                                .setAlert(
+                                        ApsAlert.builder()
+                                                .setTitle(push.getTitle())
+                                                .setBody(push.getContent())
+                                                .build()
+                                )
                                 .build())
                         .setFcmOptions(ApnsFcmOptions.builder()
                                 .setImage(push.getImageUrl()).build())
