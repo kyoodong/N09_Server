@@ -6,11 +6,13 @@ import kr.co.m_n09.vos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
+import java.util.List;
 
 @Service
 public class UserService implements UserRepository {
@@ -41,5 +43,9 @@ public class UserService implements UserRepository {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         password = Base64.encodeBase64String(factory.generateSecret(spec).getEncoded());
         return userDao.selectUserByIdPw(id, password, serviceId);
+    }
+
+    public List<User> loadAllUsersInService(int serviceId) throws Exception {
+        return userDao.loadAllUsersInService(serviceId);
     }
 }

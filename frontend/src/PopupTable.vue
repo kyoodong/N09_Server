@@ -50,7 +50,7 @@ export default {
         return []
 
       return this.service.popupList.sort((left, right) => {
-        return left.createdAt - right.createdAt
+        return right.createdAt - left.createdAt
       })
     }
   },

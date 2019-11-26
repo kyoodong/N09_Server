@@ -1,14 +1,10 @@
 package kr.co.m_n09.user;
 
-import com.google.api.client.util.Base64;
 import kr.co.m_n09.vos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.SecureRandom;
-import java.security.spec.KeySpec;
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
@@ -26,5 +22,10 @@ public class UserController {
     @GetMapping("login")
     public User login(@RequestParam String id, @RequestParam String password, @RequestParam int serviceId) throws Exception {
         return userService.getUserByIdPw(id, password, serviceId);
+    }
+
+    @GetMapping("services/{serviceId}")
+    public List<User> loadAllUsersInService(@PathVariable int serviceId) throws Exception {
+        return userService.loadAllUsersInService(serviceId);
     }
 }

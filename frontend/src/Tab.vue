@@ -27,6 +27,10 @@
 
     <hr/>
 
+    <manage-user-table :service="service"/>
+
+    <hr/>
+
     <popup-table :service="service"></popup-table>
 
     <b-button variant="danger" @click="deleteService">서비스 삭제</b-button>
@@ -45,13 +49,15 @@
 import PushModal from './PushModal'
 import DevPushModal from './DevPushModal'
 import PopupTable from './PopupTable'
+import ManageUserTable from './ManageUserTable'
 
 export default {
   name: 'tab',
   components: {
     PushModal: PushModal,
     DevPushModal: DevPushModal,
-    PopupTable: PopupTable
+    PopupTable: PopupTable,
+    ManageUserTable: ManageUserTable
   },
   props: ['service'],
   computed: {

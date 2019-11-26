@@ -36,4 +36,10 @@
         WHERE id = #{id}
         AND service_id = #{serviceId}
     </select>
+
+    <select id="loadAllUsersInService" resultType="User">
+        SELECT <include refid="column"/>
+        FROM tbl_users
+        WHERE service_id = #{serviceId}
+    </select>
 </mapper>
