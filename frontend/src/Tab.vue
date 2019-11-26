@@ -24,10 +24,7 @@
     <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
     <b-button @click="$bvModal.show('push-modal')">푸시 전송</b-button>
     <b-button @click="$bvModal.show('dev-push-modal')">푸시(개발용) 전송</b-button>
-
-    <hr/>
-
-    <manage-user-table :service="service"/>
+    <router-link :to="service.id + '/users'" ><b-button>회원 정보 관리</b-button></router-link>
 
     <hr/>
 

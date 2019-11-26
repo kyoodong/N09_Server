@@ -10,19 +10,17 @@
       :fields="fields"
       small
     ></b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
   </div>
 </template>
 
 <script>
 export default {
   name: 'manageUserTable',
-  props: ['service'],
+  watch: {
+    '$route'(to, from) {
+      this.loadUserList();
+    }
+  },
   computed: {
     filteredUserList() {
       if (this.userList == null)
@@ -45,7 +43,7 @@ export default {
   },
   methods: {
     loadUserList() {
-      this.$http.get(`${this.$baseUrl}/users/services/${this.service.id}`)
+      this.$http.get(`${this.$baseUrl}/users/services/${this.$route.params.serviceId}`)
         .then(result => {
           if (result.status === 200) {
             this.userList = result.data;

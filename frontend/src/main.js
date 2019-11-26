@@ -10,6 +10,7 @@ import axios from 'axios'
 import App from './App.vue'
 import Main from './Main.vue'
 import Login from './Login.vue'
+import ManageUserTable from './ManageUserTable.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
@@ -51,7 +52,10 @@ const routes = [
   },
   {
     name: 'login', path: '/login', component: Login
+  },{
+    name: 'users', path: '/:serviceId/users', component: ManageUserTable
   }
+
 ]
 
 const router = new VueRouter({
