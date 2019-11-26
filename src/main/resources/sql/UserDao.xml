@@ -42,4 +42,9 @@
         FROM tbl_users
         WHERE service_id = #{serviceId}
     </select>
+
+    <delete id="deleteUserById">
+        DELETE FROM tbl_users
+        WHERE id = #{id}
+    </delete>
 </mapper>

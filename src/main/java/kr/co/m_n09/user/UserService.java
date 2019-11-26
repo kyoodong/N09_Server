@@ -6,7 +6,6 @@ import kr.co.m_n09.vos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -47,5 +46,10 @@ public class UserService implements UserRepository {
 
     public List<User> loadAllUsersInService(int serviceId) throws Exception {
         return userDao.loadAllUsersInService(serviceId);
+    }
+
+    public Boolean dropUser(String userId) throws Exception {
+        userDao.deleteUserById(userId);
+        return true;
     }
 }

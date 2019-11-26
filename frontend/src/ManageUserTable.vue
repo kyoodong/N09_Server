@@ -9,7 +9,11 @@
       :current-page="currentPage"
       :fields="fields"
       small
-    ></b-table>
+    >
+      <template v-slot:cell(etc)="data">
+        <b-button variant="danger" @click="dropUser(data)">삭제</b-button>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -49,6 +53,18 @@ export default {
             this.userList = result.data;
           }
         })
+    },
+    dropUser(data) {
+      let userId = data.item.id
+
+      this.$http.delete(`${this.$baseUrl}/users?userId=${userId}`)
+        .then(result => {
+          if (result.status === 200) {
+            this.userList = this.userList.filter(el => {
+              return el.id != userId
+            })
+          }
+        })
     }
   },
   data() {
@@ -63,6 +79,10 @@ export default {
       }, {
         key: 'id',
         label: '번호'
+      }, {
+        key: 'etc',
+        label: '비고',
+        colType: 'button'
       }]
     }
   }

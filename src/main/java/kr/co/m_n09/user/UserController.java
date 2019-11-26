@@ -28,4 +28,9 @@ public class UserController {
     public List<User> loadAllUsersInService(@PathVariable int serviceId) throws Exception {
         return userService.loadAllUsersInService(serviceId);
     }
+
+    @DeleteMapping("")
+    public Boolean dropUser(@RequestParam String userId) throws Exception {
+        return userService.dropUser(userId);
+    }
 }

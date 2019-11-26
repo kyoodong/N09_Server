@@ -20,4 +20,6 @@ public interface UserDao {
     String selectSaltByUserId(@Param("id") String id, @Param("serviceId") int serviceId);
 
     List<User> loadAllUsersInService(int serviceId);
+
+    void deleteUserById(String id);
 }
