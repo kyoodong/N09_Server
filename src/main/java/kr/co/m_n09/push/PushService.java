@@ -82,4 +82,32 @@ public class PushService {
         System.out.println("Push Success " +response.getSuccessCount() + "/" + tokenList.size());
         System.out.println("Image " + push.getImageUrl());
     }
+
+    public void push(Push push, String token) throws Exception {
+        Message message = Message.builder()
+                .putData("url", push.getUrl())
+                .putData("title", push.getTitle())
+                .putData("content", push.getContent())
+                .putData("imageUrl", push.getImageUrl())
+                .setToken(token)
+                .setApnsConfig(ApnsConfig.builder()
+                        .setAps(Aps.builder()
+                                .setContentAvailable(true)
+                                .setMutableContent(true)
+                                .setAlert(
+                                        ApsAlert.builder()
+                                                .setTitle(push.getTitle())
+                                                .setBody(push.getContent())
+                                                .build()
+                                )
+                                .build())
+                        .setFcmOptions(ApnsFcmOptions.builder()
+                                .setImage(push.getImageUrl()).build())
+                        .build())
+                .build();
+
+        FirebaseMessaging.getInstance(firebaseApp).send(message);
+        System.out.println("Push Success ");
+        System.out.println("Image " + push.getImageUrl());
+    }
 }

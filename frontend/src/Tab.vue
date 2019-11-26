@@ -22,7 +22,8 @@
       </b-tbody>
     </b-table-simple>
     <b-button @click="$bvModal.show('create-url-modal')">URL 생성</b-button>
-    <b-button @click="$bvModal.show('push-modal')">푸시 생성</b-button>
+    <b-button @click="$bvModal.show('push-modal')">푸시 전송</b-button>
+    <b-button @click="$bvModal.show('dev-push-modal')">푸시(개발용) 전송</b-button>
 
     <hr/>
 
@@ -33,16 +34,23 @@
     <push-modal
       :service="service"
       @on-push-sent="onPushSent"></push-modal>
+
+    <dev-push-modal
+      :service="service"
+      @on-dev-push-sent="onPushSent"></dev-push-modal>
   </b-tab>
 </template>
 
 <script>
 import PushModal from './PushModal'
+import DevPushModal from './DevPushModal'
 import PopupTable from './PopupTable'
+
 export default {
   name: 'tab',
   components: {
     PushModal: PushModal,
+    DevPushModal: DevPushModal,
     PopupTable: PopupTable
   },
   props: ['service'],

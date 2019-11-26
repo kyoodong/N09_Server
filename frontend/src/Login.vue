@@ -2,7 +2,7 @@
   <div>
     <h1>로그인</h1>
     <b-input-group size="sm" prepend="패스워드">
-      <b-form-input v-model="password"></b-form-input>
+      <b-form-input type="password" v-model="password"></b-form-input>
     </b-input-group>
     <b-button @click="login">로그인</b-button>
   </div>
