@@ -1,11 +1,14 @@
 package kr.co.m_n09.vos;
 
+import java.util.Date;
+
 public class User {
     private String id;
     private String name;
     private String password;
     private String salt;
     private int serviceId;
+    private Date createdAt;
 
     public String getId() {
         return id;
@@ -45,5 +48,13 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

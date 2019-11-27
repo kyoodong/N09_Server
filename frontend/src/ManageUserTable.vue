@@ -79,6 +79,13 @@ export default {
       }, {
         key: 'id',
         label: '번호'
+      },{
+        key: 'createdAt',
+        label: '가입일자',
+        formatter: value => {
+          let date = new Date(value);
+          return date.getUTCFullYear() + "." + (1 + date.getUTCMonth()) + "." + date.getDate()
+        }
       }, {
         key: 'etc',
         label: '비고',
