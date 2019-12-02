@@ -5,8 +5,6 @@
     <b-table
       id="my-table"
       :items="filteredUserList"
-      :per-page="perPage"
-      :current-page="currentPage"
       :fields="fields"
       small
     >
