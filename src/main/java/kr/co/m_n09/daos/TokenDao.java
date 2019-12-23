@@ -15,4 +15,6 @@ public interface TokenDao {
     Token selectUserById(String id);
 
     void updateUser(Token token);
+
+    void deleteToken(String token);
 }

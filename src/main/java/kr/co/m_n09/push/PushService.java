@@ -1,6 +1,7 @@
 package kr.co.m_n09.push;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.common.collect.Lists;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
@@ -49,38 +50,65 @@ public class PushService {
         }
     }
 
-    public void push(Push push) throws Exception {
-        List<Token> tokenList = tokenDao.selectAllUsersByServiceId(push.getServiceId());
-        List<String> tokenStringList = new ArrayList<String>();
-        for (Token token : tokenList) {
-            tokenStringList.add(token.getToken());
-        }
+    public void push(final Push push) throws Exception {
+        final List<Token> tokenList = tokenDao.selectAllUsersByServiceId(push.getServiceId());
 
-        MulticastMessage message = MulticastMessage.builder()
-                .putData("url", push.getUrl())
-                .putData("title", push.getTitle())
-                .putData("content", push.getContent())
-                .putData("imageUrl", push.getImageUrl())
-                .setApnsConfig(ApnsConfig.builder()
-                        .setAps(Aps.builder()
-                                .setContentAvailable(true)
-                                .setMutableContent(true)
-                                .setAlert(
-                                        ApsAlert.builder()
-                                                .setTitle(push.getTitle())
-                                                .setBody(push.getContent())
-                                                .build()
-                                )
-                                .build())
-                        .setFcmOptions(ApnsFcmOptions.builder()
-                                .setImage(push.getImageUrl()).build())
-                        .build())
-                .addAllTokens(tokenStringList)
-                .build();
+        new Thread(new Runnable() {
+            public void run() {
+                List<List<String>> tokenStringList = new ArrayList<List<String>>();
+                tokenStringList.add(new ArrayList<String>());
+                for (Token token : tokenList) {
+                    List<String> list = tokenStringList.get(tokenStringList.size() - 1);
+                    if (list.size() >= 99) {
+                        list = new ArrayList<String>();
+                        tokenStringList.add(list);
+                    }
 
-        BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendMulticast(message);
-        System.out.println("Push Success " +response.getSuccessCount() + "/" + tokenList.size());
-        System.out.println("Image " + push.getImageUrl());
+                    list.add(token.getToken());
+                }
+
+                for (List<String> list : tokenStringList) {
+                    try {
+                        MulticastMessage message = MulticastMessage.builder()
+                                .putData("url", push.getUrl())
+                                .putData("title", push.getTitle())
+                                .putData("content", push.getContent())
+                                .putData("imageUrl", push.getImageUrl())
+                                .setApnsConfig(ApnsConfig.builder()
+                                        .setAps(Aps.builder()
+                                                .setContentAvailable(true)
+                                                .setMutableContent(true)
+                                                .setAlert(
+                                                        ApsAlert.builder()
+                                                                .setTitle(push.getTitle())
+                                                                .setBody(push.getContent())
+                                                                .build()
+                                                )
+                                                .build())
+                                        .setFcmOptions(ApnsFcmOptions.builder()
+                                                .setImage(push.getImageUrl()).build())
+                                        .build())
+                                .addAllTokens(list)
+                                .build();
+
+                        BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendMulticast(message);
+                        System.out.println("Push Success " +response.getSuccessCount() + "/" + list.size());
+                        for (int i = 0; i < response.getResponses().size(); i++) {
+                            if (response.getResponses().get(i).isSuccessful()) {
+                                System.out.println("success : " + list.get(i));
+                            } else {
+                                tokenDao.deleteToken(list.get(i));
+                                System.out.println(list.get(i) + "is deleted");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                System.out.println("All Push Success ");
+            }
+        }).start();
     }
 
     public void push(Push push, String token) throws Exception {

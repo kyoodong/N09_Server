@@ -8,6 +8,9 @@
       :fields="fields"
       small
     >
+      <template v-slot:cell(index)="data">
+        {{ data.index + 1 }}
+      </template>
       <template v-slot:cell(etc)="data">
         <b-button variant="danger" @click="dropUser(data)">삭제</b-button>
       </template>
@@ -72,6 +75,9 @@ export default {
       currentPage: 1,
       perPage: 20,
       fields: [{
+        key: 'index',
+        label: '번호'
+      },{
         key: 'name',
         label: '이름'
       }, {
